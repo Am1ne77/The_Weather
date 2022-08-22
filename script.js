@@ -31,3 +31,11 @@ const search = () => {
 document.querySelector(".search-button").addEventListener("click", function () {
     search();
   });
+
+document.querySelector(".search-bar").addEventListener("keyup", function (event) {
+    if (event.key == "Enter") {
+      search();
+    }
+  });
+
+getWeather("Paris");
