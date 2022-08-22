@@ -7,9 +7,14 @@
     <title>The Weather</title>
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
+    <script src="./Connected.js" defer></script>
   </head>
   <body>
-    <div class="data">
+    <div class="connect" id="connectScreen">
+      <div class="enterKey">Please enter your open weather map key</div>
+      <input type="search" class="key-bar" />
+    </div>
+    <div class="data" id="allData">
       <div class="search">
         <input type="search" class="search-bar" />
         <button class="search-button">
