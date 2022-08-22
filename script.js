@@ -33,6 +33,8 @@ const display = (data) => {
 
   document.body.style.backgroundImage =
     "url('https://source.unsplash.com/1600x900/?" + name + "')";
+
+  localStorage.setItem("lastSearch", name);
 };
 
 const search = () => {
@@ -66,5 +68,5 @@ function Toogle() {
 
 if (localStorage.getItem("key") !== null) {
   Toogle();
-  getWeather("Paris");
+  getWeather(localStorage.getItem("lastSearch"));
 }
