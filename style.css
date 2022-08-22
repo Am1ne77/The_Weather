@@ -37,3 +37,28 @@ input.search-bar {
     border-radius: 15px;
     border: none;
 }
+
+.temperature{
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.cityname{
+    margin-bottom: 5px;
+    font-size: 35px;
+}
+
+.sidetoside {
+    display: flex;
+    align-items: center;
+}
+
+img.icon {
+    margin-left: 10px;
+}
+
+.weatherdata.loading {
+    visibility: hidden;
+    max-height: 20px;
+    position: relative;
+  }
