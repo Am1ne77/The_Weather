@@ -16,16 +16,52 @@ const getWeather = (city) => {
     .then((data) => display(data));
 };
 
+const mod = (num, modulo) => {
+  if (num >= 0) {
+    return +(num % modulo);
+  }
+  while (num < 0) {
+    num += modulo;
+  }
+  return num;
+};
+
+const format = (str) => {
+  if (str.length < 2) {
+    str = "0" + str;
+  }
+  return str;
+};
+
+const currTime = (timezone) => {
+  timezone /= 3600;
+  let gmtHours = new Date().getUTCHours();
+  let gmtMinutes = new Date().getUTCMinutes();
+  let res = "";
+  res += format(mod(gmtHours + timezone, 24).toString()) + ":";
+  if (!Number.isInteger(timezone)) {
+    let realminutes = Math.round((timezone % 1) * 100) / 100;
+    res += format(mod(realminutes + gmtMinutes, 60).toString());
+  } else {
+    res += format(gmtMinutes.toString());
+  }
+  return res;
+};
+
 const display = (data) => {
   const { name } = data;
   const { icon, description } = data.weather[0];
   const { temp, humidity } = data.main;
   const { speed } = data.wind;
+  const { timezone } = data;
   document.querySelector(".cityname").innerText = "Weather in " + name;
   document.querySelector(".temperature").innerText = temp + "°C";
   document.querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
   document.querySelector(".wind").innerText = "Wind Speed: " + speed + " km/h";
   document.querySelector(".description").innerText = titleCase(description);
+
+  document.querySelector(".time").innerText = currTime(timezone);
+
   document.querySelector(".icon").src =
     "https://openweathermap.org/img/wn/" + icon + ".png";
 
