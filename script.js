@@ -16,14 +16,18 @@ const getWeather = (city) => {
     .then((data) => display(data));
 };
 
-const mod = (num, modulo) => {
+const mod = (num, modulo, str = "") => {
+  if (num >= modulo && str != "") {
+    let temp = str[0] + (parseInt(str[1]) + 1).toString() + str[2];
+    return temp + (+(num % modulo)).toString();
+  }
   if (num >= 0) {
-    return +(num % modulo);
+    return (+(num % modulo)).toString();
   }
   while (num < 0) {
     num += modulo;
   }
-  return num;
+  return num.toString();
 };
 
 const format = (str) => {
@@ -38,10 +42,14 @@ const currTime = (timezone) => {
   let gmtHours = new Date().getUTCHours();
   let gmtMinutes = new Date().getUTCMinutes();
   let res = "";
-  res += format(mod(gmtHours + Math.trunc(timezone), 24).toString()) + ":";
+  res += format(mod(gmtHours + Math.trunc(timezone), 24)) + ":";
   if (!Number.isInteger(timezone)) {
     let realminutes = Math.round((timezone % 1) * 100) / 100;
-    res += format(mod(realminutes * 60 + gmtMinutes, 60).toString());
+    if (realminutes * 60 + gmtMinutes >= 60) {
+      res = format(mod(realminutes * 60 + gmtMinutes, 60, res));
+    } else {
+      res += format(mod(realminutes * 60 + gmtMinutes, 60));
+    }
   } else {
     res += format(gmtMinutes.toString());
   }
