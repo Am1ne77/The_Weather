@@ -38,10 +38,10 @@ const currTime = (timezone) => {
   let gmtHours = new Date().getUTCHours();
   let gmtMinutes = new Date().getUTCMinutes();
   let res = "";
-  res += format(mod(gmtHours + timezone, 24).toString()) + ":";
+  res += format(mod(gmtHours + Math.trunc(timezone), 24).toString()) + ":";
   if (!Number.isInteger(timezone)) {
     let realminutes = Math.round((timezone % 1) * 100) / 100;
-    res += format(mod(realminutes + gmtMinutes, 60).toString());
+    res += format(mod(realminutes * 60 + gmtMinutes, 60).toString());
   } else {
     res += format(gmtMinutes.toString());
   }
